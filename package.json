@@ -12,7 +12,8 @@
     "zip": "rm ../avalab-prompt-helper.zip; cd dist; zip -r ../../avalab-prompt-helper.zip *"
   },
   "dependencies": {
-    "vue": "^3.4.29"
+    "vue": "^3.4.29",
+    "vue-slide-up-down": "^3.0.0"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.268",

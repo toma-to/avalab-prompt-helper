@@ -647,6 +647,7 @@ __metadata:
     typescript: "npm:^5.2.2"
     vite: "npm:^5.3.1"
     vue: "npm:^3.4.29"
+    vue-slide-up-down: "npm:^3.0.0"
     vue-tsc: "npm:^2.0.21"
   languageName: unknown
   linkType: soft
@@ -1830,6 +1831,15 @@ __metadata:
   version: 3.0.8
   resolution: "vscode-uri@npm:3.0.8"
   checksum: 10c0/f7f217f526bf109589969fe6e66b71e70b937de1385a1d7bb577ca3ee7c5e820d3856a86e9ff2fa9b7a0bc56a3dd8c3a9a557d3fedd7df414bc618d5e6b567f9
+  languageName: node
+  linkType: hard
+
+"vue-slide-up-down@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "vue-slide-up-down@npm:3.0.0"
+  peerDependencies:
+    vue: ">=3.0.0"
+  checksum: 10c0/eb10c26118e9b63ec4c906767ebb8773272d6f06d5abe10708517b8df6d8015f2473c0477ce70c70fee650d61126623a05aa767b30f5b956db8fc39725d0a07a
   languageName: node
   linkType: hard
 
