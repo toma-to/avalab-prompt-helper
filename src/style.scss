@@ -1,0 +1,38 @@
+:root {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-optical-sizing: auto;
+  line-height: 1.2;
+  font-weight: 400;
+
+  --main-color: #000040;
+  --sub-color: #8080a0;
+  --bg-color: #f8f8f0;
+  --sub-bg-color: #ffffff;
+  --active-color: #8080c0;
+  --active-color-rgb: 128, 128, 192;
+  --button-active: rgba(var(--active-color-rgb), 0.2);
+
+  color: var(--main-color);
+  background-color: var(--bg-color);
+}
+
+body {
+  margin: 0;
+  width: 400px;
+  height: 600px;
+  font-size: 16px;
+}
+
+#app {
+  margin: 0;
+  width: 400px;
+}
+
+.material-symbols-outlined {
+  .md-24 {
+    font-size: 24px;
+  }
+  .md-18 {
+    font-size: 18px;
+  }
+}
