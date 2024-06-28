@@ -40,7 +40,7 @@ export const initialData: CategoryRecord[] = [
   {
     id: crypto.randomUUID(),
     name: '表情',
-    prompts:[
+    prompts: [
       {
         id: crypto.randomUUID(),
         description: '泣き顔',
@@ -61,6 +61,6 @@ export const initialData: CategoryRecord[] = [
         description: '無表情',
         prompt: 'expressionless',
       },
-    ]
-  }
+    ],
+  },
 ];

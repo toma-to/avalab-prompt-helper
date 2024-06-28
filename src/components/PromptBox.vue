@@ -5,6 +5,7 @@ import PromptRow from './PromptRow.vue';
 import VuSlideUpDown from 'vue-slide-up-down';
 
 const props = defineProps<{
+  id: string;
   category: string;
   records: PromptRecord[];
   filter?: string[];
@@ -49,6 +50,7 @@ const hasRecords = computed(() => filterdRecords.value.length > 0);
             v-for="record in filterdRecords"
             :key="record.id"
             :record="record"
+            :category-id="id"
           />
         </tbody>
       </table>

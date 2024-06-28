@@ -35,7 +35,7 @@ function onClick() {
   <SimpleButton
     :caption="caption"
     :size="size"
-    :type="type"
+    :variant="type"
     @click="onClick"
     :disabled="disabled"
   />

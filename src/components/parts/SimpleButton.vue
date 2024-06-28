@@ -5,21 +5,22 @@ const props = withDefaults(
   defineProps<{
     caption: string;
     size?: 'small' | 'normal' | 'large';
-    type?: 'confirm' | 'cancel';
+    variant?: 'confirm' | 'cancel';
     disabled?: boolean;
+    type?: 'button' | 'submit';
   }>(),
   {
     size: 'normal',
-    type: 'confirm',
+    variant: 'confirm',
     disabled: false,
+    type: 'button',
   },
 );
 
 const styles = computed(() => [
   'button',
   'size-' + props.size,
-  'color-' + props.type,
-  props.disabled ? 'button-disable' : 'button-enable',
+  'color-' + props.variant,
 ]);
 
 const emit = defineEmits<{ click: [] }>();
@@ -30,7 +31,14 @@ function onClick() {
 }
 </script>
 <template>
-  <div :class="styles" @click.stop="onClick">{{ caption }}</div>
+  <button
+    :class="styles"
+    @click.stop="onClick"
+    :type="type"
+    :disabled="disabled"
+  >
+    {{ caption }}
+  </button>
 </template>
 <style scoped lang="scss">
 .button {
@@ -38,17 +46,17 @@ function onClick() {
   border-radius: 5px;
   text-align: center;
   font-size: var(--nomal-font-size);
-}
-.button-enable {
-  cursor: pointer;
-  &:hover {
-    background-color: var(--active-color);
+  &:enabled {
+    cursor: pointer;
+    color: var(--main-color);
+    &:hover {
+      background-color: var(--active-color);
+    }
   }
-  color: var(--main-color);
-}
-.button-disable {
-  color: var(--light-color);
-  opacity: 0.5;
+  &:disabled {
+    color: var(--light-color);
+    opacity: 0.5;
+  }
 }
 .size-small {
   width: 5rem;
@@ -61,9 +69,10 @@ function onClick() {
 }
 .color-confirm {
   background-color: var(--accent-bg-color);
+  border: none;
 }
 .color-cancel {
-  background-color: var(--bg-color);
+  background-color: var(--light-color);
   border: solid 1px var(--accent-bg-color);
 }
 </style>

@@ -2,7 +2,9 @@
 import IconButton from './parts/IconButton.vue';
 import { PromptRecord } from '../data/prompt-record';
 import { ContentScriptMessage } from '../data/content-script-message';
-const props = defineProps<{ record: PromptRecord }>();
+import { useEventBus } from '@vueuse/core';
+import { editPromptEventKey } from '../events';
+const props = defineProps<{ categoryId: string; record: PromptRecord }>();
 
 async function sendMessage(message: ContentScriptMessage) {
   const tab = await chrome?.tabs?.query({ active: true, currentWindow: true });
@@ -27,6 +29,10 @@ async function send() {
     prompt: prompts.join(''),
   });
 }
+const { emit } = useEventBus(editPromptEventKey);
+function onEdit() {
+  emit({ target: props.record, categoryId: props.categoryId });
+}
 </script>
 <template>
   <tr class="prompt-row">
@@ -38,7 +44,9 @@ async function send() {
     </td>
     <td class="prompt-cell main-cell">{{ record.prompt }}</td>
     <td class="description-cell main-cell">{{ record.description }}</td>
-    <td class="edit-cell icon-cell"><IconButton icon="edit" /></td>
+    <td class="edit-cell icon-cell">
+      <IconButton icon="edit" @click="onEdit" />
+    </td>
   </tr>
 </template>
 <style scoped lang="scss">
