@@ -18,10 +18,12 @@ const { cancel, confirm, reveal, isRevealed } = useConfirmDialog<
 
 const prompt = ref('');
 const description = ref('');
+const canDelete = ref(false);
 
 async function modal(
   input?: DialogData,
 ): Promise<DialogData | null | 'delete'> {
+  canDelete.value = input != null;
   prompt.value = input?.prompt ?? '';
   description.value = input?.description ?? '';
   const reuslt = await reveal();
@@ -57,7 +59,7 @@ defineExpose({
       <div class="modal-base" v-if="isRevealed">
         <ConfirmDialog ref="confirmDialogRef" />
         <div class="dialog">
-          <div class="delete-button">
+          <div class="delete-button" v-if="canDelete">
             <IconButton icon="delete" @click="onDelete" />
           </div>
           <form @submit.prevent="() => confirm('submit')">

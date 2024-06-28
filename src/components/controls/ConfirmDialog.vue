@@ -52,7 +52,7 @@ defineExpose({
   width: 80%;
   padding: 1rem;
   background-color: var(--bg-color);
-  margin: 5rem auto;
+  margin: 10rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;

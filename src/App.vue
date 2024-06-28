@@ -18,7 +18,11 @@ function onFilterUpdate(val: string[]) {
 }
 
 import { useEventBus } from '@vueuse/core';
-import { editPromptEventKey, importEventKey } from './events';
+import {
+  editPromptEventKey,
+  importEventKey,
+  newPromptEventKey,
+} from './events';
 
 const { on: onImport } = useEventBus(importEventKey);
 onImport((ev) => {
@@ -43,6 +47,21 @@ onEditPrompt(async (ev) => {
     } else {
       ev.target.prompt = result.prompt;
       ev.target.description = result.description;
+    }
+    await storeRecordsRef(records);
+  }
+});
+const { on: onNewPrompt } = useEventBus(newPromptEventKey);
+onNewPrompt(async (ev) => {
+  const result = (await promptEditDialogRef.value?.modal()) ?? null;
+  if (result && result !== 'delete') {
+    const categoy = records.value.find((val) => val.id === ev.categoryId);
+    if (categoy) {
+      categoy.prompts.push({
+        id: crypto.randomUUID(),
+        prompt: result.prompt,
+        description: result.description,
+      });
     }
     await storeRecordsRef(records);
   }
