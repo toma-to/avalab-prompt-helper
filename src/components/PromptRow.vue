@@ -23,12 +23,12 @@ async function apply() {
 <style scoped lang="scss">
 .prompt-row {
   padding: 0;
-  border: solid 1px var(--sub-color);
+  border: solid 1px var(--light-color);
   .main-cell {
     padding: 0.5rem;
   }
   .prompt-cell {
-    border-right: solid 1px var(--sub-color);
+    border-right: solid 1px var(--light-color);
   }
   .description-cell {
     width: 30%;

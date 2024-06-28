@@ -14,7 +14,7 @@ defineProps<{ icon: string }>();
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  color: var(--sub-color);
+  color: var(--light-color);
 
   &:hover {
     background-color: var(--icon-active);

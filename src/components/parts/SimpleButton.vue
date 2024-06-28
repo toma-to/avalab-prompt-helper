@@ -47,7 +47,7 @@ function onClick() {
   color: var(--main-color);
 }
 .button-disable {
-  color: var(--sub-color);
+  color: var(--light-color);
   opacity: 0.5;
 }
 .size-small {

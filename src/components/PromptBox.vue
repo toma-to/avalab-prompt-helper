@@ -4,30 +4,49 @@ import { PromptRecord } from '../data/prompt-record';
 import PromptRow from './PromptRow.vue';
 import VuSlideUpDown from 'vue-slide-up-down';
 
-defineProps<{ category: string; records: PromptRecord[] }>();
+const props = defineProps<{
+  category: string;
+  records: PromptRecord[];
+  filter?: string[];
+}>();
 
-const active = ref(true);
-const icon = computed(() => (active.value ? 'remove' : 'add'));
-function toggleActive() {
-  active.value = !active.value;
+const expand = ref(false);
+const icon = computed(() => (expand.value ? 'remove' : 'add'));
+function toggleExpand() {
+  expand.value = !expand.value;
 }
+
+import { useEventBus } from '@vueuse/core';
+import { expandTogleEventKey } from '../events';
+const { on } = useEventBus(expandTogleEventKey);
+on((ev) => (expand.value = ev.expand));
+
+const filterdRecords = computed(() => {
+  if (props.filter) {
+    const fl = props.filter;
+    return props.records.filter((val) =>
+      fl.every((f) => val.prompt.includes(f) || val.description.includes(f)),
+    );
+  } else {
+    return props.records;
+  }
+});
+
+const hasRecords = computed(() => filterdRecords.value.length > 0);
 </script>
 <template>
-  <div class="prompt-box">
-    <div class="category">
-      <div
-        class="material-symbols-outlined md-18 accordion-button"
-        @click="toggleActive"
-      >
+  <div class="prompt-box" v-if="hasRecords">
+    <div class="category" @click="toggleExpand">
+      <div class="material-symbols-outlined md-18 accordion-button">
         {{ icon }}
       </div>
       <div>{{ category }}</div>
     </div>
-    <VuSlideUpDown :active="active" :duration="200">
+    <VuSlideUpDown :active="expand" :duration="200">
       <table class="prompt-table">
         <tbody>
           <PromptRow
-            v-for="record in records"
+            v-for="record in filterdRecords"
             :key="record.id"
             :record="record"
           />
@@ -41,11 +60,11 @@ function toggleActive() {
   margin: 0.5rem;
   background-color: var(--sub-bg-color);
   .category {
+    cursor: pointer;
     padding: 0.5rem;
     display: flex;
     align-items: center;
     .accordion-button {
-      cursor: pointer;
       color: var(--sub-color);
     }
   }
@@ -56,7 +75,7 @@ function toggleActive() {
   table-layout: fixed;
   width: calc(100% - 2rem);
   margin-left: 2rem;
-  border: solid 1px var(--sub-color);
+  border: solid 1px var(--light-color);
   overflow-wrap: anywhere;
 }
 </style>
