@@ -1,31 +1,37 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import PromptBox from './components/PromptBox.vue';
-import { initialData } from './data/initial-data';
+import { onMounted, ref } from 'vue';
 import { CategoryRecord } from './data/category-record';
+import { loadRecords } from './data/data-store';
+import PromptBox from './components/PromptBox.vue';
+import HeaderArea from './components/header/HeaderArea.vue';
 
-const records = ref<CategoryRecord[]>(initialData);
+const records = ref<CategoryRecord[]>([]);
+onMounted(async () => {
+  records.value = await loadRecords();
+});
+
+import { useEventBus } from '@vueuse/core';
+import { importEventKey } from './events';
+
+const { on: onImport } = useEventBus(importEventKey);
+onImport((ev) => {
+  records.value = ev.records;
+});
 </script>
 
 <template>
-  <PromptBox
-    v-for="record in records"
-    :records="record.prompts"
-    :category="record.name"
-  />
+  <div class="main">
+    <HeaderArea />
+    <PromptBox
+      v-for="record in records"
+      :records="record.prompts"
+      :category="record.name"
+    />
+  </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<style scoped lang="scss">
+.main {
+  padding-top: 3.5rem;
 }
 </style>

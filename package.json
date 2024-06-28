@@ -12,6 +12,9 @@
     "zip": "rm ../avalab-prompt-helper.zip; cd dist; zip -r ../../avalab-prompt-helper.zip *"
   },
   "dependencies": {
+    "@vueuse/core": "^10.11.0",
+    "csv-parse": "^5.5.6",
+    "csv-stringify": "^6.5.0",
     "vue": "^3.4.29",
     "vue-slide-up-down": "^3.0.0"
   },

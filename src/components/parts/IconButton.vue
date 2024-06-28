@@ -17,7 +17,7 @@ defineProps<{ icon: string }>();
   color: var(--sub-color);
 
   &:hover {
-    background-color: var(--button-active);
+    background-color: var(--icon-active);
     color: var(--main-color);
     cursor: pointer;
   }

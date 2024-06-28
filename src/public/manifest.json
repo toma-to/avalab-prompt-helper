@@ -3,6 +3,7 @@
   "name": "Avalab.aiプロンプト入力補助ツール",
   "description": "Avalab.aiのプロンプト入力を補助する拡張機能",
   "version": "1.0",
+  "permissions": ["storage"],
   "action": {
     "default_popup": "index.html"
   },
