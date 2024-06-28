@@ -2,6 +2,7 @@ import { CategoryRecord } from './category-record';
 import { parse } from 'csv-parse/browser/esm/sync';
 import { stringify } from 'csv-stringify/browser/esm/sync';
 import { loadRecords, storeRecords } from './data-store';
+import { uncategorizedCategoryId } from '../constants';
 
 export const importTsv = async (
   tsv: string,
@@ -27,7 +28,7 @@ export const importTsv = async (
         prompts: [],
       }));
     const uncategorized: CategoryRecord = {
-      id: '',
+      id: uncategorizedCategoryId,
       name: '未分類',
       prompts: [],
     };
@@ -43,7 +44,10 @@ export const importTsv = async (
       });
     }
 
-    const mergedCategories = [uncategorized, ...categories];
+    const mergedCategories =
+      uncategorized.prompts.length > 0
+        ? [uncategorized, ...categories]
+        : categories;
 
     await storeRecords(mergedCategories);
 

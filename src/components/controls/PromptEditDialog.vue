@@ -26,11 +26,11 @@ async function modal(
   canDelete.value = input != null;
   prompt.value = input?.prompt ?? '';
   description.value = input?.description ?? '';
-  const reuslt = await reveal();
-  if (reuslt.isCanceled) {
+  const result = await reveal();
+  if (result.isCanceled) {
     return null;
   } else {
-    if (reuslt.data === 'submit') {
+    if (result.data === 'submit') {
       return {
         prompt: prompt.value,
         description: description.value,

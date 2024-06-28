@@ -1,10 +1,20 @@
 <script setup lang="ts">
-defineProps<{ icon: string }>();
+withDefaults(
+  defineProps<{
+    icon: string;
+    type?: 'button' | 'submit';
+    disabled?: boolean;
+  }>(),
+  {
+    type: 'button',
+    disabled: false,
+  },
+);
 </script>
 <template>
-  <div class="icon-button">
+  <button class="icon-button" :type="type" :disabled="disabled">
     <div class="material-symbols-outlined md-24">{{ icon }}</div>
-  </div>
+  </button>
 </template>
 <style scoped lang="scss">
 .icon-button {
@@ -14,12 +24,20 @@ defineProps<{ icon: string }>();
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  color: var(--light-color);
+  border: none;
+  &:enabled {
+    color: var(--light-color);
+    background-color: var(--bg-color);
 
-  &:hover {
-    background-color: var(--icon-active);
-    color: var(--main-color);
-    cursor: pointer;
+    &:hover {
+      background-color: var(--icon-active);
+      color: var(--main-color);
+      cursor: pointer;
+    }
+  }
+  &:disabled {
+    color: var(--bg-color);
+    background-color: var(--sub-bg-color);
   }
 }
 </style>

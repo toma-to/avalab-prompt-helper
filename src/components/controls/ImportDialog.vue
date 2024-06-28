@@ -29,6 +29,7 @@ async function onFileLoaded(ev: ProgressEvent<FileReader>) {
   } else {
     window.alert('ファイルが正しくありません。');
   }
+  reading.value = false;
 }
 
 // ダイアログ処理

@@ -2,11 +2,6 @@ import { CategoryRecord } from './category-record';
 
 export const initialData: CategoryRecord[] = [
   {
-    id: '',
-    name: '未分類',
-    prompts: [],
-  },
-  {
     id: crypto.randomUUID(),
     name: '構図',
     prompts: [

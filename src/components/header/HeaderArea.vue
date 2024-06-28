@@ -13,11 +13,20 @@ async function onImport() {
 async function onExport() {
   await exportTsv();
 }
+
+const emit = defineEmits<{ categoryEdit: [] }>();
 </script>
 <template>
   <div class="header">
     <div class="title">avalabプロンプト入力補助</div>
     <div class="icon-area">
+      <div class="icon-item">
+        <IconButton
+          class="icon"
+          icon="edit_note"
+          @click="emit('categoryEdit')"
+        />
+      </div>
       <div class="icon-item">
         <IconButton class="icon" icon="download" @click="onExport" />
       </div>

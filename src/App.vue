@@ -6,6 +6,9 @@ import PromptBox from './components/PromptBox.vue';
 import HeaderArea from './components/header/HeaderArea.vue';
 import FilterInput from './components/controls/FilterInput.vue';
 import PromptEditDialog from './components/controls/PromptEditDialog.vue';
+import CategoryDialog, {
+  DialogData as CategoryDialogData,
+} from './components/controls/CategoryDialog.vue';
 
 const records = ref<CategoryRecord[]>([]);
 onMounted(async () => {
@@ -66,12 +69,39 @@ onNewPrompt(async (ev) => {
     await storeRecordsRef(records);
   }
 });
+
+// カテゴリ編集
+const categoryDialogRef = ref<InstanceType<typeof CategoryDialog> | null>(null);
+async function onEditCategory() {
+  const input: CategoryDialogData[] = records.value.map((val) => ({
+    categoryId: val.id,
+    categoryName: val.name,
+  }));
+  const result = (await categoryDialogRef.value?.modal(input)) ?? null;
+  if (result) {
+    const newList: CategoryRecord[] = [];
+    for (const record of result) {
+      const current = records.value.find(
+        (val) => val.id === record.categoryId,
+      ) ?? {
+        id: record.categoryId,
+        name: record.categoryName,
+        prompts: [],
+      };
+      current.name = record.categoryName;
+      newList.push(current);
+    }
+    records.value = newList;
+    await storeRecordsRef(records);
+  }
+}
 </script>
 
 <template>
   <div class="main">
+    <CategoryDialog ref="categoryDialogRef" />
     <PromptEditDialog ref="promptEditDialogRef" />
-    <HeaderArea />
+    <HeaderArea @category-edit="onEditCategory" />
     <FilterInput class="filter-input" @update="onFilterUpdate" />
     <PromptBox
       v-for="record in records"
