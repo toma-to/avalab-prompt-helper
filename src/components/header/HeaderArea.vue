@@ -3,6 +3,7 @@ import IconButton from '../parts/IconButton.vue';
 import ImportDialog from '../controls/ImportDialog.vue';
 import { ref } from 'vue';
 import { exportTsv } from '../../data/data-import-export';
+import { documentPageUrl } from '../../constants';
 
 const importDialogRef = ref<InstanceType<typeof ImportDialog> | null>(null);
 
@@ -14,11 +15,15 @@ async function onExport() {
   await exportTsv();
 }
 
+function onHelp() {
+  window.open(documentPageUrl);
+}
+
 const emit = defineEmits<{ categoryEdit: [] }>();
 </script>
 <template>
   <div class="header">
-    <div class="title">avalabプロンプト入力補助</div>
+    <div class="title">avalabプロンプト入力支援</div>
     <div class="icon-area">
       <div class="icon-item">
         <IconButton
@@ -32,6 +37,9 @@ const emit = defineEmits<{ categoryEdit: [] }>();
       </div>
       <div class="icon-item">
         <IconButton class="icon" icon="upload" @click="onImport" />
+      </div>
+      <div class="icon-item">
+        <IconButton class="icon" icon="help" @click="onHelp" />
       </div>
     </div>
     <ImportDialog ref="importDialogRef" />
