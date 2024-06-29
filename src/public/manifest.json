@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Avalab.aiプロンプト入力補助ツール",
+  "name": "Avalab.aiプロンプト入力支援ツール",
   "description": "Avalab.aiのプロンプト入力を補助する拡張機能",
   "version": "1.0",
   "permissions": ["storage"],
