@@ -75,6 +75,7 @@ defineExpose({ modal });
         <ConfirmDialog ref="confirmDialogRef" />
         <div class="dialog">
           <h1 class="title">カテゴリ編集</h1>
+          <div class="caution">※カテゴリを削除すると、カテゴリ内のプロンプトもすべて削除されます。</div>
           <div class="list-area">
             <CategoryDialogRecord
               v-for="(record, i) in records"
@@ -126,6 +127,11 @@ defineExpose({ modal });
 }
 .title {
   font-size: var(--large-font-size);
+}
+.caution {
+  font-size: var(--small-font-size);
+  color: var(--danger-color);
+  font-weight: bold;
 }
 .list-area {
   width: 95%;
