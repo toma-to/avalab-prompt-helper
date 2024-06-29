@@ -86,7 +86,13 @@ async function onEditCategory() {
       ) ?? {
         id: record.categoryId,
         name: record.categoryName,
-        prompts: [],
+        prompts: [
+          {
+            id: crypto.randomUUID(),
+            prompt: '',
+            description: 'プロンプトを設定してください。',
+          },
+        ],
       };
       current.name = record.categoryName;
       newList.push(current);
