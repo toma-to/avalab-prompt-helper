@@ -53,7 +53,13 @@ watch(editing, (val) => emit('editStatus', props.id, val));
         />
       </div>
       <div class="name-area">
-        <input type="text" v-if="editing" v-model="editText" required />
+        <input
+          type="text"
+          class="form-item"
+          v-if="editing"
+          v-model="editText"
+          required
+        />
         <template v-else>{{ name }}</template>
       </div>
       <div class="icon-area">
@@ -97,15 +103,6 @@ watch(editing, (val) => emit('editStatus', props.id, val));
   width: calc(100% - 124px);
   input {
     width: 90%;
-    border-radius: 5px;
-    padding: 5px;
-    border: solid 1px var(--light-color);
-    &:focus {
-      outline: solid 1px var(--sub-color);
-    }
-    &::placeholder {
-      color: var(--light-color);
-    }
   }
 }
 </style>

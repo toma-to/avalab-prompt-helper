@@ -83,3 +83,15 @@ body {
   z-index: var(--modal-z-index);
   background-color: rgba(var(--main-color-rgb), 0.7);
 }
+
+.form-item {
+  border-radius: 5px;
+  padding: 5px;
+  border: solid 1px var(--light-color);
+  &:focus {
+    outline: solid 1px var(--sub-color);
+  }
+  &::placeholder {
+    color: var(--light-color);
+  }
+}

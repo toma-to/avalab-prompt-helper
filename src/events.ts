@@ -13,6 +13,3 @@ export const editPromptEventKey: EventBusKey<{
   target: PromptRecord;
   categoryId: string;
 }> = Symbol(eventBusSymbolName);
-
-export const newPromptEventKey: EventBusKey<{ categoryId: string }> =
-  Symbol(eventBusSymbolName);
