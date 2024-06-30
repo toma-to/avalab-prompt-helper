@@ -3,7 +3,7 @@ import IconButton from '../parts/IconButton.vue';
 import ImportDialog from '../controls/ImportDialog.vue';
 import { ref } from 'vue';
 import { exportTsv } from '../../data/data-import-export';
-import { documentPageUrl } from '../../constants';
+import AboutDialog from './AboutDialog.vue';
 
 const importDialogRef = ref<InstanceType<typeof ImportDialog> | null>(null);
 
@@ -15,14 +15,16 @@ async function onExport() {
   await exportTsv();
 }
 
-function onHelp() {
-  window.open(documentPageUrl);
+const aboutDialogRef = ref<InstanceType<typeof AboutDialog> | null>();
+async function onHelp() {
+  await aboutDialogRef.value?.modal();
 }
 
 const emit = defineEmits<{ categoryEdit: [] }>();
 </script>
 <template>
   <div class="header">
+    <AboutDialog ref="aboutDialogRef" />
     <div class="title">avalabプロンプト入力支援</div>
     <div class="icon-area">
       <div class="icon-item">
