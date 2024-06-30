@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import svgLoader from 'vite-svg-loader';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,12 +10,14 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-
+    svgLoader({
+      defaultImport: 'url',
+    }),
     viteStaticCopy({
       targets: [
         {
-          src: 'assets/*',
-          dest: 'assets',
+          src: 'assets/icon/*',
+          dest: 'assets/icon',
         },
       ],
     }),
