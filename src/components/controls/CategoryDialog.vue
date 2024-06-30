@@ -72,7 +72,6 @@ defineExpose({ modal });
   <Teleport to="body">
     <Transition name="fade">
       <div class="modal-base" v-if="isRevealed">
-        <ConfirmDialog ref="confirmDialogRef" />
         <div class="dialog">
           <h1 class="title">カテゴリ編集</h1>
           <div class="caution">
