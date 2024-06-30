@@ -4,7 +4,7 @@
 
 ## インストール
 
-TBD
+[Chromeウェブストア](https://chromewebstore.google.com/detail/avalabai%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E5%85%A5%E5%8A%9B%E6%94%AF%E6%8F%B4%E3%83%84%E3%83%BC%E3%83%AB/okhnpkdkjhoehaiimadniembjdikncpa)からインストールしてください。
 
 ## 使い方
 
