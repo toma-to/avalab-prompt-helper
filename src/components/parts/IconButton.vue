@@ -4,6 +4,8 @@ withDefaults(
     icon: string;
     type?: 'button' | 'submit';
     disabled?: boolean;
+    tooltip?: string;
+    htmlTooltip?: boolean;
   }>(),
   {
     type: 'button',
@@ -12,7 +14,15 @@ withDefaults(
 );
 </script>
 <template>
-  <button class="icon-button" :type="type" :disabled="disabled">
+  <button
+    class="icon-button"
+    :type="type"
+    :disabled="disabled"
+    v-tooltip.bottom-start="{
+      content: tooltip,
+      html: htmlTooltip,
+    }"
+  >
     <div class="material-symbols-outlined md-24">{{ icon }}</div>
   </button>
 </template>

@@ -94,7 +94,11 @@ defineExpose({ modal });
             />
           </div>
           <div class="add-icon-area">
-            <IconButton icon="list_alt_add" @click="onAdd" />
+            <IconButton
+              icon="list_alt_add"
+              @click="onAdd"
+              tooltip="カテゴリの追加"
+            />
           </div>
           <div class="button-area">
             <SimpleButton
