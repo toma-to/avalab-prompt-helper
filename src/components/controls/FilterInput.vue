@@ -35,7 +35,7 @@ const expandIcon = computed(() =>
       <IconButton :icon="expandIcon" @click="onToggleExpand" />
     </div>
     <input
-      class="input"
+      class="form-item"
       type="search"
       placeholder="絞り込み…"
       v-model="inputText"
@@ -50,16 +50,5 @@ const expandIcon = computed(() =>
 }
 .expand-all {
   margin-left: 0.5rem;
-}
-.input {
-  border-radius: 5px;
-  padding: 5px;
-  border: solid 1px var(--light-color);
-  &:focus {
-    outline: solid 1px var(--sub-color);
-  }
-  &::placeholder {
-    color: var(--light-color);
-  }
 }
 </style>

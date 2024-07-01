@@ -2,10 +2,9 @@
 import { computed, ref } from 'vue';
 import { PromptRecord } from '../data/prompt-record';
 import { useEventBus } from '@vueuse/core';
-import { expandTogleEventKey, newPromptEventKey } from '../events';
+import { expandTogleEventKey } from '../events';
 import PromptRow from './PromptRow.vue';
 import VuSlideUpDown from 'vue-slide-up-down';
-import IconButton from './parts/IconButton.vue';
 
 const props = defineProps<{
   id: string;
@@ -35,11 +34,6 @@ const filterdRecords = computed(() => {
 });
 
 const hasRecords = computed(() => filterdRecords.value.length > 0);
-const { emit } = useEventBus(newPromptEventKey);
-
-function onAdd() {
-  emit({ categoryId: props.id });
-}
 </script>
 <template>
   <div class="prompt-box" v-if="hasRecords">
@@ -48,9 +42,6 @@ function onAdd() {
         {{ icon }}
       </div>
       <div>{{ category }}</div>
-      <div class="add-icon-area">
-        <IconButton icon="playlist_add" @click.stop="onAdd" />
-      </div>
     </div>
     <VuSlideUpDown :active="expand" :duration="200">
       <table class="prompt-table">
@@ -77,9 +68,6 @@ function onAdd() {
     align-items: center;
     .accordion-button {
       color: var(--sub-color);
-    }
-    .add-icon-area {
-      margin-left: auto;
     }
   }
 }

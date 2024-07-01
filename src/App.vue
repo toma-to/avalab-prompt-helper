@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { CategoryRecord } from './data/category-record';
 import { loadRecords, storeRecordsRef } from './data/data-store';
 import PromptBox from './components/PromptBox.vue';
@@ -9,11 +9,15 @@ import PromptEditDialog from './components/controls/PromptEditDialog.vue';
 import CategoryDialog, {
   DialogData as CategoryDialogData,
 } from './components/controls/CategoryDialog.vue';
+import { uncategorizedCategoryId } from './constants';
 
 const records = ref<CategoryRecord[]>([]);
 onMounted(async () => {
   records.value = await loadRecords();
 });
+const categoryList = computed(() =>
+  records.value.filter((val) => val.id !== uncategorizedCategoryId),
+);
 
 const filter = ref<string[]>([]);
 function onFilterUpdate(val: string[]) {
@@ -21,11 +25,7 @@ function onFilterUpdate(val: string[]) {
 }
 
 import { useEventBus } from '@vueuse/core';
-import {
-  editPromptEventKey,
-  importEventKey,
-  newPromptEventKey,
-} from './events';
+import { editPromptEventKey, importEventKey } from './events';
 
 const { on: onImport } = useEventBus(importEventKey);
 onImport((ev) => {
@@ -38,7 +38,11 @@ const promptEditDialogRef = ref<InstanceType<typeof PromptEditDialog> | null>(
 );
 const { on: onEditPrompt } = useEventBus(editPromptEventKey);
 onEditPrompt(async (ev) => {
-  const result = (await promptEditDialogRef.value?.modal(ev.target)) ?? null;
+  const result =
+    (await promptEditDialogRef.value?.modal({
+      ...ev.target,
+      categoryId: ev.categoryId,
+    })) ?? null;
   if (result) {
     if (result === 'delete') {
       const categoy = records.value.find((val) => val.id === ev.categoryId);
@@ -50,15 +54,24 @@ onEditPrompt(async (ev) => {
     } else {
       ev.target.prompt = result.prompt;
       ev.target.description = result.description;
+      if (ev.categoryId !== result.categoryId) {
+        const current = records.value.find((val) => val.id === ev.categoryId);
+        const next = records.value.find((val) => val.id === result.categoryId);
+        if (current && next) {
+          current.prompts = current.prompts.filter(
+            (val) => val.id !== ev.target.id,
+          );
+          next.prompts.push(ev.target);
+        }
+      }
     }
     await storeRecordsRef(records);
   }
 });
-const { on: onNewPrompt } = useEventBus(newPromptEventKey);
-onNewPrompt(async (ev) => {
+async function onAddPrompt() {
   const result = (await promptEditDialogRef.value?.modal()) ?? null;
   if (result && result !== 'delete') {
-    const categoy = records.value.find((val) => val.id === ev.categoryId);
+    const categoy = records.value.find((val) => val.id === result.categoryId);
     if (categoy) {
       categoy.prompts.push({
         id: crypto.randomUUID(),
@@ -68,7 +81,7 @@ onNewPrompt(async (ev) => {
     }
     await storeRecordsRef(records);
   }
-});
+}
 
 // カテゴリ編集
 const categoryDialogRef = ref<InstanceType<typeof CategoryDialog> | null>(null);
@@ -86,13 +99,7 @@ async function onEditCategory() {
       ) ?? {
         id: record.categoryId,
         name: record.categoryName,
-        prompts: [
-          {
-            id: crypto.randomUUID(),
-            prompt: '',
-            description: 'プロンプトを設定してください。',
-          },
-        ],
+        prompts: [],
       };
       current.name = record.categoryName;
       newList.push(current);
@@ -106,8 +113,8 @@ async function onEditCategory() {
 <template>
   <div class="main">
     <CategoryDialog ref="categoryDialogRef" />
-    <PromptEditDialog ref="promptEditDialogRef" />
-    <HeaderArea @category-edit="onEditCategory" />
+    <PromptEditDialog ref="promptEditDialogRef" :category-list="categoryList" />
+    <HeaderArea @category-edit="onEditCategory" @add-prompt="onAddPrompt" />
     <FilterInput class="filter-input" @update="onFilterUpdate" />
     <PromptBox
       v-for="record in records"

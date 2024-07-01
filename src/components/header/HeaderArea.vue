@@ -20,13 +20,20 @@ async function onHelp() {
   await aboutDialogRef.value?.modal();
 }
 
-const emit = defineEmits<{ categoryEdit: [] }>();
+const emit = defineEmits<{ categoryEdit: []; addPrompt: [] }>();
 </script>
 <template>
   <div class="header">
     <AboutDialog ref="aboutDialogRef" />
     <div class="title">avalabプロンプト入力支援</div>
     <div class="icon-area">
+      <div class="icon-item">
+        <IconButton
+          class="icon"
+          icon="playlist_add"
+          @click.stop="emit('addPrompt')"
+        />
+      </div>
       <div class="icon-item">
         <IconButton
           class="icon"
