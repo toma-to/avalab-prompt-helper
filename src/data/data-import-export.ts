@@ -46,7 +46,7 @@ export const importTsv = async (
 
     const mergedCategories =
       uncategorized.prompts.length > 0
-        ? [uncategorized, ...categories]
+        ? [...categories, uncategorized]
         : categories;
 
     await storeRecords(mergedCategories);

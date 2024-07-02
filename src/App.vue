@@ -86,12 +86,15 @@ async function onAddPrompt() {
 // カテゴリ編集
 const categoryDialogRef = ref<InstanceType<typeof CategoryDialog> | null>(null);
 async function onEditCategory() {
-  const input: CategoryDialogData[] = records.value.map((val) => ({
-    categoryId: val.id,
-    categoryName: val.name,
-  }));
+  const input: CategoryDialogData[] = records.value
+    .filter((val) => val.id !== uncategorizedCategoryId)
+    .map((val) => ({
+      categoryId: val.id,
+      categoryName: val.name,
+    }));
   const result = (await categoryDialogRef.value?.modal(input)) ?? null;
   if (result) {
+    const exists = new Set<string>();
     const newList: CategoryRecord[] = [];
     for (const record of result) {
       const current = records.value.find(
@@ -103,6 +106,20 @@ async function onEditCategory() {
       };
       current.name = record.categoryName;
       newList.push(current);
+      exists.add(current.id);
+    }
+    const uncategorized = records.value.find(
+      (val) => val.id === uncategorizedCategoryId,
+    ) ?? { id: uncategorizedCategoryId, name: '未分類', prompts: [] };
+    for (const old of records.value.filter(
+      (val) => val.id !== uncategorizedCategoryId,
+    )) {
+      if (!exists.has(old.id)) {
+        uncategorized.prompts.push(...old.prompts);
+      }
+    }
+    if (uncategorized.prompts.length > 0) {
+      newList.push(uncategorized);
     }
     records.value = newList;
     await storeRecordsRef(records);

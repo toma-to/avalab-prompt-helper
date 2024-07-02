@@ -5,6 +5,7 @@ import { useEventBus } from '@vueuse/core';
 import { expandTogleEventKey } from '../events';
 import PromptRow from './PromptRow.vue';
 import VuSlideUpDown from 'vue-slide-up-down';
+import { uncategorizedCategoryId } from '../constants';
 
 const props = defineProps<{
   id: string;
@@ -18,6 +19,14 @@ const icon = computed(() => (expand.value ? 'remove' : 'add'));
 function toggleExpand() {
   expand.value = !expand.value;
 }
+
+const labelClass = computed(() => {
+  const classes: string[] = [];
+  if (props.id === uncategorizedCategoryId) {
+    classes.push('uncategorized-label');
+  }
+  return classes;
+});
 
 const { on } = useEventBus(expandTogleEventKey);
 on((ev) => (expand.value = ev.expand));
@@ -41,7 +50,9 @@ const hasRecords = computed(() => filterdRecords.value.length > 0);
       <div class="material-symbols-outlined md-18 accordion-button">
         {{ icon }}
       </div>
-      <div>{{ category }}</div>
+      <div>
+        <span :class="labelClass">{{ category }}</span>
+      </div>
     </div>
     <VuSlideUpDown :active="expand" :duration="200">
       <table class="prompt-table">

@@ -95,3 +95,8 @@ body {
     color: var(--light-color);
   }
 }
+
+.uncategorized-label {
+  transform: skewX(-15deg);
+  display: inline-block;
+}
