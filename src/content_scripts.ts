@@ -3,6 +3,31 @@ import { ContentScriptMessage } from './data/content-script-message';
 const sleep = (ms: number) =>
   new Promise<void>((resolv) => setTimeout(resolv, ms));
 
+const isTargetInput = (node: Node): node is HTMLInputElement => {
+  if (!(node instanceof HTMLInputElement)) {
+    return false;
+  }
+  if (node.parentElement?.classList.contains('tag-input')) {
+    return true;
+  }
+  return false;
+};
+
+const isTargetButton = (node: Node): node is HTMLButtonElement => {
+  if (!(node instanceof HTMLButtonElement)) {
+    return false;
+  }
+
+  if (
+    node.type === 'submit' &&
+    node.parentElement?.parentElement?.classList.contains('tag-input')
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
 async function main() {
   let input: any = undefined;
   let button: any = undefined;
@@ -10,18 +35,11 @@ async function main() {
   const observer = new MutationObserver((records) => {
     for (const record of records) {
       for (const target of record.addedNodes) {
-        if (
-          target instanceof HTMLInputElement &&
-          target.type === 'text' &&
-          target.placeholder.startsWith('追加する属性を入力')
-        ) {
+        if (isTargetInput(target)) {
           input = target;
-        } else if (
-          target instanceof HTMLSpanElement &&
-          target.textContent === '追加' &&
-          target.parentElement instanceof HTMLButtonElement
-        ) {
-          button = target.parentElement;
+        }
+        if (isTargetButton(target)) {
+          button = target;
         }
       }
     }
