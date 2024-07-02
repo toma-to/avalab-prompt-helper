@@ -45,11 +45,13 @@ watch(editing, (val) => emit('editStatus', props.id, val));
           icon="arrow_drop_up"
           :disabled="!canUp"
           @click="emit('toUp', index)"
+          tooltip="並べ替え"
         />
         <IconButton
           icon="arrow_drop_down"
           :disabled="!canDown"
           @click="emit('toDown', index)"
+          tooltip="並べ替え"
         />
       </div>
       <div class="name-area">
@@ -64,14 +66,23 @@ watch(editing, (val) => emit('editStatus', props.id, val));
       </div>
       <div class="icon-area">
         <template v-if="editing">
-          <IconButton icon="check" type="submit" />
-          <IconButton icon="backspace" @click="onEditCancel" />
+          <IconButton icon="check" type="submit" tooltip="編集を確定" />
+          <IconButton
+            icon="backspace"
+            @click="onEditCancel"
+            tooltip="編集を取り消し"
+          />
         </template>
         <template v-else>
-          <IconButton icon="edit" @click="editing = true" />
+          <IconButton
+            icon="edit"
+            @click="editing = true"
+            tooltip="カテゴリ名編集"
+          />
           <IconButton
             icon="delete_forever"
             @click="emit('delete', id, index)"
+            tooltip="カテゴリを削除"
           />
         </template>
       </div>

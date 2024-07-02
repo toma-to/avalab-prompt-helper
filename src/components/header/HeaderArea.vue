@@ -32,6 +32,7 @@ const emit = defineEmits<{ categoryEdit: []; addPrompt: [] }>();
           class="icon"
           icon="playlist_add"
           @click.stop="emit('addPrompt')"
+          tooltip="プロンプトの追加"
         />
       </div>
       <div class="icon-item">
@@ -39,16 +40,32 @@ const emit = defineEmits<{ categoryEdit: []; addPrompt: [] }>();
           class="icon"
           icon="edit_note"
           @click="emit('categoryEdit')"
+          tooltip="カテゴリ編集"
         />
       </div>
       <div class="icon-item">
-        <IconButton class="icon" icon="download" @click="onExport" />
+        <IconButton
+          class="icon"
+          icon="download"
+          @click="onExport"
+          tooltip="エクスポート"
+        />
       </div>
       <div class="icon-item">
-        <IconButton class="icon" icon="upload" @click="onImport" />
+        <IconButton
+          class="icon"
+          icon="upload"
+          @click="onImport"
+          tooltip="インポート"
+        />
       </div>
       <div class="icon-item">
-        <IconButton class="icon" icon="help" @click="onHelp" />
+        <IconButton
+          class="icon"
+          icon="help"
+          @click="onHelp"
+          tooltip="ツールの情報"
+        />
       </div>
     </div>
     <ImportDialog ref="importDialogRef" />

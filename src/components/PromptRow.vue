@@ -37,15 +37,19 @@ function onEdit() {
 <template>
   <tr class="prompt-row">
     <td class="apply-cell icon-cell">
-      <IconButton icon="prompt_suggestion" @click="apply" />
+      <IconButton
+        icon="prompt_suggestion"
+        @click="apply"
+        tooltip="挿入して確定"
+      />
     </td>
     <td class="send-cell icon-cell">
-      <IconButton icon="data_object" @click="send" />
+      <IconButton icon="data_object" @click="send" tooltip="強調挿入" />
     </td>
     <td class="prompt-cell main-cell">{{ record.prompt }}</td>
     <td class="description-cell main-cell">{{ record.description }}</td>
     <td class="edit-cell icon-cell">
-      <IconButton icon="edit" @click="onEdit" />
+      <IconButton icon="edit" @click="onEdit" tooltip="プロンプトを編集" />
     </td>
   </tr>
 </template>

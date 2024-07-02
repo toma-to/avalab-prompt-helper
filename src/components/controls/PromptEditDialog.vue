@@ -70,7 +70,11 @@ defineExpose({
         <ConfirmDialog ref="confirmDialogRef" />
         <div class="dialog">
           <div class="delete-button" v-if="canDelete">
-            <IconButton icon="delete" @click="onDelete" />
+            <IconButton
+              icon="delete"
+              @click="onDelete"
+              tooltip="プロンプトを削除"
+            />
           </div>
           <form @submit.prevent="() => confirm('submit')">
             <div class="form-inner">
