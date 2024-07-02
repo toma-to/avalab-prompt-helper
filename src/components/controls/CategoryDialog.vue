@@ -75,7 +75,10 @@ defineExpose({ modal });
         <div class="dialog">
           <h1 class="title">カテゴリ編集</h1>
           <div class="caution">
-            ※カテゴリを削除すると、カテゴリ内のプロンプトもすべて削除されます。
+            ※カテゴリを削除すると、カテゴリ内のプロンプトは<span
+              class="uncategorized-label"
+              >未分類</span
+            >カテゴリに移動します。
           </div>
           <div class="list-area">
             <CategoryDialogRecord
