@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { PromptRecord } from '../data/prompt-record';
+import { PromptRecord } from '@models/prompts/prompt-record';
 import { useEventBus } from '@vueuse/core';
-import { expandTogleEventKey } from '../events';
-import PromptRow from './PromptRow.vue';
+import { expandToggleEventKey, promptFilterEventKey } from '@common/events';
+import PromptRow from '@components/prompt-view/PromptRow.vue';
 import VuSlideUpDown from 'vue-slide-up-down';
-import { uncategorizedCategoryId } from '../constants';
+import { uncategorizedCategoryId } from '@common/constants';
 
 const props = defineProps<{
   id: string;
   category: string;
   records: PromptRecord[];
-  filter?: string[];
 }>();
 
 const expand = ref(false);
@@ -28,14 +27,19 @@ const labelClass = computed(() => {
   return classes;
 });
 
-const { on } = useEventBus(expandTogleEventKey);
-on((ev) => (expand.value = ev.expand));
+const { on: onExpand } = useEventBus(expandToggleEventKey);
+onExpand((ev) => (expand.value = ev.expand));
+
+const filters = ref<string[]>([]);
+const { on: onFilter } = useEventBus(promptFilterEventKey);
+onFilter((ev) => (filters.value = ev.filters));
 
 const filterdRecords = computed(() => {
-  if (props.filter) {
-    const fl = props.filter;
+  if (filters.value.length > 0) {
     return props.records.filter((val) =>
-      fl.every((f) => val.prompt.includes(f) || val.description.includes(f)),
+      filters.value.every(
+        (f) => val.prompt.includes(f) || val.description.includes(f),
+      ),
     );
   } else {
     return props.records;

@@ -1,4 +1,4 @@
-import { ContentScriptMessage } from './data/content-script-message';
+import { PromptMessage } from '@messages/message-types';
 
 const sleep = (ms: number) =>
   new Promise<void>((resolv) => setTimeout(resolv, ms));
@@ -50,26 +50,24 @@ async function main() {
     subtree: true,
   });
 
-  chrome.runtime.onMessage.addListener(
-    async (message: ContentScriptMessage) => {
-      if (
-        input instanceof HTMLInputElement &&
-        button instanceof HTMLButtonElement
-      ) {
-        input.focus();
+  chrome.runtime.onMessage.addListener(async (message: PromptMessage) => {
+    if (
+      input instanceof HTMLInputElement &&
+      button instanceof HTMLButtonElement
+    ) {
+      input.focus();
+      await sleep(10);
+      input.value = input.value + message.prompt;
+      await sleep(10);
+      input.dispatchEvent(new InputEvent('input', { data: message.prompt }));
+      if (message.submit) {
         await sleep(10);
-        input.value = input.value + message.prompt;
+        input.blur();
         await sleep(10);
-        input.dispatchEvent(new InputEvent('input', { data: message.prompt }));
-        if (message.submit) {
-          await sleep(10);
-          input.blur();
-          await sleep(10);
-          button.click();
-        }
+        button.click();
       }
-    },
-  );
+    }
+  });
 }
 
 main();

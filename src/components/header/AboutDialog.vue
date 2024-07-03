@@ -5,8 +5,8 @@ import {
   githubUrl,
   licenseUrl,
   thirdPartyUrl,
-} from '../../constants';
-import { getManifestInfo } from '../../utils/manifest.util';
+} from '@common/constants';
+import { getManifestInfo } from '@utils/manifest.util';
 
 const { appName, version, iconUrl } = getManifestInfo();
 

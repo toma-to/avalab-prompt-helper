@@ -1,37 +1,15 @@
 <script setup lang="ts">
-import IconButton from './parts/IconButton.vue';
-import { PromptRecord } from '../data/prompt-record';
-import { ContentScriptMessage } from '../data/content-script-message';
-import { useEventBus } from '@vueuse/core';
-import { editPromptEventKey } from '../events';
+import { PromptRecord } from '@models/prompts/prompt-record';
+import { applyPrompt, sendPrompt } from '@messages/prompt-message';
+import EditPromptButton from '@components/buttons/EditPromptButton.vue';
+import IconButton from '@components/common/IconButton.vue';
 const props = defineProps<{ categoryId: string; record: PromptRecord }>();
 
-async function sendMessage(message: ContentScriptMessage) {
-  const tab = await chrome?.tabs?.query({ active: true, currentWindow: true });
-  if (tab && tab[0]?.id) {
-    chrome.tabs.sendMessage(tab[0].id, message);
-  }
-}
-
 async function apply() {
-  await sendMessage({
-    submit: true,
-    prompt: props.record.prompt,
-  });
+  applyPrompt(props.record.prompt);
 }
 async function send() {
-  const prompts = props.record.prompt
-    .split(',')
-    .map((val) => (val.startsWith('(') ? val + ',' : `(${val}),`));
-
-  await sendMessage({
-    submit: false,
-    prompt: prompts.join(''),
-  });
-}
-const { emit } = useEventBus(editPromptEventKey);
-function onEdit() {
-  emit({ target: props.record, categoryId: props.categoryId });
+  sendPrompt(props.record.prompt);
 }
 </script>
 <template>
@@ -49,7 +27,7 @@ function onEdit() {
     <td class="prompt-cell main-cell">{{ record.prompt }}</td>
     <td class="description-cell main-cell">{{ record.description }}</td>
     <td class="edit-cell icon-cell">
-      <IconButton icon="edit" @click="onEdit" tooltip="プロンプトを編集" />
+      <EditPromptButton :category-id="categoryId" :record="record" />
     </td>
   </tr>
 </template>
