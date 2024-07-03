@@ -7,9 +7,9 @@ export type DialogData = {
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useConfirmDialog } from '@vueuse/core';
-import SimpleButton from '../parts/SimpleButton.vue';
+import SimpleButton from '@components/common/SimpleButton.vue';
 import CategoryDialogRecord from './CategoryDialogRecord.vue';
-import IconButton from '../parts/IconButton.vue';
+import IconButton from '@components/common/IconButton.vue';
 
 const records = ref<(DialogData & { isNew?: boolean })[]>([]);
 const editingList = ref<Map<string, boolean>>(new Map<string, boolean>());

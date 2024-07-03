@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import FileSelectButton from '../parts/FileSelectButton.vue';
+import { importTsv } from '@models/prompts/data-import-export';
+import { useConfirmDialog, onClickOutside } from '@vueuse/core';
+import { CategoryRecord } from '@models/prompts/category-record';
+import FileSelectButton from '@components/common/FileSelectButton.vue';
 
 const reading = ref(false);
 
 // ファイルインポート処理
-import { importTsv } from '../../data/data-import-export';
-import { useEventBus } from '@vueuse/core';
-import { importEventKey } from '../../events';
-
-const { emit } = useEventBus(importEventKey);
-
 function onFileSelected(file: File) {
   reading.value = true;
   const reader = new FileReader();
@@ -23,8 +20,7 @@ async function onFileLoaded(ev: ProgressEvent<FileReader>) {
     if (result === 'error') {
       window.alert('ファイルが正しくありません。');
     } else {
-      emit({ records: result });
-      confirm();
+      confirm(result);
     }
   } else {
     window.alert('ファイルが正しくありません。');
@@ -33,10 +29,13 @@ async function onFileLoaded(ev: ProgressEvent<FileReader>) {
 }
 
 // ダイアログ処理
-import { useConfirmDialog, onClickOutside } from '@vueuse/core';
-const { cancel, confirm, reveal, isRevealed } = useConfirmDialog();
-async function modal(): Promise<void> {
-  await reveal();
+const { cancel, confirm, reveal, isRevealed } = useConfirmDialog<
+  any,
+  CategoryRecord[]
+>();
+async function modal(): Promise<CategoryRecord[] | null> {
+  const result = await reveal();
+  return result.isCanceled ? null : result.data ?? null;
 }
 const dialogRef = ref(null);
 onClickOutside(dialogRef, cancel);

@@ -1,26 +1,16 @@
 <script setup lang="ts">
-import IconButton from '../parts/IconButton.vue';
-import ImportDialog from '../controls/ImportDialog.vue';
 import { ref } from 'vue';
-import { exportTsv } from '../../data/data-import-export';
+import IconButton from '@components/common/IconButton.vue';
 import AboutDialog from './AboutDialog.vue';
-
-const importDialogRef = ref<InstanceType<typeof ImportDialog> | null>(null);
-
-async function onImport() {
-  await importDialogRef.value?.modal();
-}
-
-async function onExport() {
-  await exportTsv();
-}
+import AddPromptButton from '@components/buttons/AddPromptButton.vue';
+import EditCategoryButton from '@components/buttons/EditCategoryButton.vue';
+import ExportButton from '@components/buttons/ExportButton.vue';
+import ImportButton from '@components/buttons/ImportButton.vue';
 
 const aboutDialogRef = ref<InstanceType<typeof AboutDialog> | null>();
 async function onHelp() {
   await aboutDialogRef.value?.modal();
 }
-
-const emit = defineEmits<{ categoryEdit: []; addPrompt: [] }>();
 </script>
 <template>
   <div class="header">
@@ -28,36 +18,16 @@ const emit = defineEmits<{ categoryEdit: []; addPrompt: [] }>();
     <div class="title">avalabプロンプト入力支援</div>
     <div class="icon-area">
       <div class="icon-item">
-        <IconButton
-          class="icon"
-          icon="playlist_add"
-          @click.stop="emit('addPrompt')"
-          tooltip="プロンプトの追加"
-        />
+        <AddPromptButton class="icon" />
       </div>
       <div class="icon-item">
-        <IconButton
-          class="icon"
-          icon="edit_note"
-          @click="emit('categoryEdit')"
-          tooltip="カテゴリ編集"
-        />
+        <EditCategoryButton class="icon" />
       </div>
       <div class="icon-item">
-        <IconButton
-          class="icon"
-          icon="download"
-          @click="onExport"
-          tooltip="エクスポート"
-        />
+        <ExportButton class="icon" />
       </div>
       <div class="icon-item">
-        <IconButton
-          class="icon"
-          icon="upload"
-          @click="onImport"
-          tooltip="インポート"
-        />
+        <ImportButton class="icon" />
       </div>
       <div class="icon-item">
         <IconButton
@@ -68,7 +38,6 @@ const emit = defineEmits<{ categoryEdit: []; addPrompt: [] }>();
         />
       </div>
     </div>
-    <ImportDialog ref="importDialogRef" />
   </div>
 </template>
 <style scoped lang="scss">

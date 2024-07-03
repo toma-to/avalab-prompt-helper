@@ -9,10 +9,10 @@ export type CategoryInfo = Pick<CategoryRecord, 'id' | 'name'>;
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useConfirmDialog } from '@vueuse/core';
-import SimpleButton from '../parts/SimpleButton.vue';
-import IconButton from '../parts/IconButton.vue';
-import ConfirmDialog from './ConfirmDialog.vue';
-import { CategoryRecord } from '../../data/category-record';
+import SimpleButton from '@components/common/SimpleButton.vue';
+import IconButton from '@components/common/IconButton.vue';
+import ConfirmDialog from '@components/common/ConfirmDialog.vue';
+import { CategoryRecord } from '@models/prompts/category-record';
 
 defineProps<{
   categoryList: CategoryInfo[];

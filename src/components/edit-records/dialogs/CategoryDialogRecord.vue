@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import IconButton from '../parts/IconButton.vue';
+import IconButton from '@components/common/IconButton.vue';
 
 const props = withDefaults(
   defineProps<{

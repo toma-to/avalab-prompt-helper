@@ -7,7 +7,7 @@ export type DialogData = {
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useConfirmDialog } from '@vueuse/core';
-import SimpleButton from '../parts/SimpleButton.vue';
+import SimpleButton from '@components/common/SimpleButton.vue';
 
 const { cancel, confirm, reveal, isRevealed } = useConfirmDialog();
 
