@@ -13,9 +13,7 @@ export const defineLoadStore = <T>(
   const store = async (data: T) => {
     const obj: { [key: string]: any } = {};
     obj[storageKey] = data;
-    console.log('start set', data);
     await chrome.storage?.local.set(obj);
-    console.log('end set', data);
   };
 
   return { load, store };
