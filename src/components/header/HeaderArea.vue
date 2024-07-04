@@ -47,7 +47,7 @@ async function onHelp() {
   left: 0;
   right: 0;
   width: 100%;
-  height: 3rem;
+  height: var(--header-area-height);
   display: flex;
   align-items: center;
   justify-content: space-between;

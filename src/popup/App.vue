@@ -34,9 +34,18 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .main {
-  padding-top: 3.5rem;
+  padding-top: calc(
+    var(--header-area-height) + var(--filter-area-height) + 0.5rem
+  );
 }
 .filter-area {
-  margin-right: 1rem;
+  position: fixed;
+  top: var(--header-area-height);
+  left: 0;
+  right: 0;
+  height: var(--filter-area-height);
+  background-color: var(--bg-color);
+  border-bottom: solid 1px var(--sub-color);
+  padding-right: 1rem;
 }
 </style>
