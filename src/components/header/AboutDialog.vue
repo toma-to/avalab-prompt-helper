@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { onClickOutside, useConfirmDialog } from '@vueuse/core';
 import {
   documentPageUrl,
   githubUrl,
@@ -10,7 +11,6 @@ import { getManifestInfo } from '@utils/manifest.util';
 
 const { appName, version, iconUrl } = getManifestInfo();
 
-import { useConfirmDialog, onClickOutside } from '@vueuse/core';
 const { cancel, reveal, isRevealed } = useConfirmDialog();
 async function modal(): Promise<void> {
   await reveal();

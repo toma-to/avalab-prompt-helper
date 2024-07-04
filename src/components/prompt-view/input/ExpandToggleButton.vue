@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { expandToggleEventKey } from '@common/events';
-import { useEventBus } from '@vueuse/core';
 import { computed, ref } from 'vue';
+import { useEventBus } from '@vueuse/core';
+import { expandToggleEventKey } from '@common/events';
 import IconButton from '@components/common/IconButton.vue';
 
 const expandAll = ref(false);

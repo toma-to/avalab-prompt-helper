@@ -1,9 +1,9 @@
 import { createApp } from 'vue';
-import '@css/style.scss';
-import './popup.scss';
-import App from './App.vue';
 import FloatingVue from 'floating-vue';
 import 'floating-vue/dist/style.css';
+import '@css/style.scss';
+import App from './App.vue';
+import './popup.scss';
 
 const app = createApp(App);
 app.use(FloatingVue, {

@@ -1,6 +1,6 @@
 import { EventBusKey } from '@vueuse/core';
-import { eventBusSymbolName } from './constants';
 import { PromptRecord } from '@models/prompts/prompt-record';
+import { eventBusSymbolName } from './constants';
 
 export const importEventKey: EventBusKey<{}> = Symbol(eventBusSymbolName);
 

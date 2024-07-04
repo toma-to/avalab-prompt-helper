@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useEventBus } from '@vueuse/core';
-import { importEventKey } from '@common/events';
 import { ref } from 'vue';
+import { useEventBus } from '@vueuse/core';
 import { CategoryRecord } from '@models/prompts/category-record';
+import { importEventKey } from '@common/events';
 import ImportDialog from './dialog/ImportDialog.vue';
 
 const model = defineModel<CategoryRecord[]>({ required: true });

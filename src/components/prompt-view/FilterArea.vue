@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import FilterInput from './input/FilterInput.vue';
 import ExpandToggleButton from './input/ExpandToggleButton.vue';
+import FilterInput from './input/FilterInput.vue';
 </script>
 <template>
   <div class="search-input">

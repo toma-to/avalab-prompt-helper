@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { editPromptEventKey } from '@common/events';
-import { PromptRecord } from '@models/prompts/prompt-record';
 import { useEventBus } from '@vueuse/core';
+import { PromptRecord } from '@models/prompts/prompt-record';
+import { editPromptEventKey } from '@common/events';
 import IconButton from '@components/common/IconButton.vue';
 
 const props = defineProps<{ categoryId: string; record: PromptRecord }>();

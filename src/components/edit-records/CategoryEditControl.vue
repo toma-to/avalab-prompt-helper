@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { uncategorizedCategoryId } from '@common/constants';
 import { ref } from 'vue';
+import { useEventBus } from '@vueuse/core';
 import { CategoryRecord } from '@models/prompts/category-record';
 import { storeRecordsRef } from '@models/prompts/data-store';
-import { useEventBus } from '@vueuse/core';
+import { uncategorizedCategoryId } from '@common/constants';
 import { editCategoryEventKey } from '@common/events';
 import CategoryDialog, { DialogData } from './dialogs/CategoryDialog.vue';
 

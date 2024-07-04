@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import IconButton from '@components/common/IconButton.vue';
-import AboutDialog from './AboutDialog.vue';
 import AddPromptButton from '@components/buttons/AddPromptButton.vue';
 import EditCategoryButton from '@components/buttons/EditCategoryButton.vue';
 import ExportButton from '@components/buttons/ExportButton.vue';
 import ImportButton from '@components/buttons/ImportButton.vue';
+import IconButton from '@components/common/IconButton.vue';
+import AboutDialog from './AboutDialog.vue';
 
 const aboutDialogRef = ref<InstanceType<typeof AboutDialog> | null>();
 async function onHelp() {

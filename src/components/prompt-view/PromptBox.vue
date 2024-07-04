@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { PromptRecord } from '@models/prompts/prompt-record';
 import { useEventBus } from '@vueuse/core';
+import VuSlideUpDown from 'vue-slide-up-down';
+import { PromptRecord } from '@models/prompts/prompt-record';
+import { uncategorizedCategoryId } from '@common/constants';
 import { expandToggleEventKey, promptFilterEventKey } from '@common/events';
 import PromptRow from '@components/prompt-view/PromptRow.vue';
-import VuSlideUpDown from 'vue-slide-up-down';
-import { uncategorizedCategoryId } from '@common/constants';
 
 const props = defineProps<{
   id: string;
