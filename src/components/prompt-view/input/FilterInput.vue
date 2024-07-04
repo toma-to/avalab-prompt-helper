@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { promptFilterEventKey } from '@common/events';
-import { useDebounceFn, useEventBus } from '@vueuse/core';
 import { ref, watch } from 'vue';
+import { useDebounceFn, useEventBus } from '@vueuse/core';
+import { promptFilterEventKey } from '@common/events';
 
 const inputText = ref<string | undefined>();
 

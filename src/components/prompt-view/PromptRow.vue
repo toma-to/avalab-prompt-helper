@@ -3,6 +3,7 @@ import { PromptRecord } from '@models/prompts/prompt-record';
 import { applyPrompt, sendPrompt } from '@messages/prompt-message';
 import EditPromptButton from '@components/buttons/EditPromptButton.vue';
 import IconButton from '@components/common/IconButton.vue';
+
 const props = defineProps<{ categoryId: string; record: PromptRecord }>();
 
 async function apply() {

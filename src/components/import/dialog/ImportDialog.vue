@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { importTsv } from '@models/prompts/data-import-export';
-import { useConfirmDialog, onClickOutside } from '@vueuse/core';
+import { onClickOutside, useConfirmDialog } from '@vueuse/core';
 import { CategoryRecord } from '@models/prompts/category-record';
+import { importTsv } from '@models/prompts/data-import-export';
 import FileSelectButton from '@components/common/FileSelectButton.vue';
 
 const reading = ref(false);

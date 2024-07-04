@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { uncategorizedCategoryId } from '@common/constants';
-import { CategoryRecord } from '@models/prompts/category-record';
 import { computed, ref } from 'vue';
 import { useEventBus } from '@vueuse/core';
-import { editPromptEventKey, addPromptEventKey } from '@common/events';
+import { CategoryRecord } from '@models/prompts/category-record';
 import { storeRecordsRef } from '@models/prompts/data-store';
+import { uncategorizedCategoryId } from '@common/constants';
+import { addPromptEventKey, editPromptEventKey } from '@common/events';
 import PromptEditDialog from './dialogs/PromptEditDialog.vue';
 
 const model = defineModel<CategoryRecord[]>({ required: true });

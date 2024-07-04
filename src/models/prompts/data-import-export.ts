@@ -1,8 +1,8 @@
-import { CategoryRecord } from './category-record';
 import { parse } from 'csv-parse/browser/esm/sync';
 import { stringify } from 'csv-stringify/browser/esm/sync';
-import { loadRecords, storeRecords } from './data-store';
 import { uncategorizedCategoryId } from '@common/constants';
+import { CategoryRecord } from './category-record';
+import { loadRecords, storeRecords } from './data-store';
 
 export const importTsv = async (
   tsv: string,
