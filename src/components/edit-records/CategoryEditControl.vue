@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { useEventBus } from '@vueuse/core';
 import { CategoryRecord } from '@models/prompts/category-record';
 import { storeRecordsRef } from '@models/prompts/data-store';
@@ -50,6 +50,7 @@ on(async () => {
     newList.push(uncategorized);
   }
   model.value = newList;
+  await nextTick();
   await storeRecordsRef(model);
 });
 </script>

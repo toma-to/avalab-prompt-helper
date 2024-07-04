@@ -1,24 +1,17 @@
 import { Ref } from 'vue';
+import { defineLoadStore } from '@utils/storage.util';
 import { CategoryRecord } from './category-record';
 import { initialData } from './initial-data';
 
-const RECORDS_KEY = 'CATEGORY_DATA';
-
-export const loadRecords = async (): Promise<CategoryRecord[]> => {
-  const data = await chrome.storage?.local.get(RECORDS_KEY);
-  const records = data ? data[RECORDS_KEY] : undefined;
-  return records ?? initialData;
-};
-
-export const storeRecords = async (data: CategoryRecord[]): Promise<void> => {
-  const obj: { [key: string]: any } = {};
-  obj[RECORDS_KEY] = data;
-  await chrome.storage?.local.set(obj);
-};
+const { load: loadRecords, store: storeRecords } = defineLoadStore<
+  CategoryRecord[]
+>('CATEGORY_DATA', initialData);
+export { loadRecords, storeRecords };
 
 export const storeRecordsRef = async (
   data: Ref<CategoryRecord[]>,
 ): Promise<void> => {
+  console.log(data.value);
   const list: CategoryRecord[] = data.value.map((val) => ({
     id: val.id,
     name: val.name,
@@ -28,5 +21,6 @@ export const storeRecordsRef = async (
       description: p.description,
     })),
   }));
+  console.log(list);
   await storeRecords(list);
 };

@@ -1,3 +1,4 @@
+import { loadOptions, watchOptions } from '@models/options/data-store';
 import { PromptMessage } from '@messages/message-types';
 
 const sleep = (ms: number) =>
@@ -28,9 +29,20 @@ const isTargetButton = (node: Node): node is HTMLButtonElement => {
   return false;
 };
 
+const hideSuggest = (node: Node): void => {
+  if (!(node instanceof HTMLElement)) {
+    return;
+  }
+  if (node.classList.contains('suggest')) {
+    node.style.display = 'none';
+  }
+};
+
 async function main() {
   let input: any = undefined;
   let button: any = undefined;
+  let hideOption = (await loadOptions()).hidePromptSuggest;
+  watchOptions((options) => (hideOption = options.hidePromptSuggest));
 
   const observer = new MutationObserver((records) => {
     for (const record of records) {
@@ -40,6 +52,9 @@ async function main() {
         }
         if (isTargetButton(target)) {
           button = target;
+        }
+        if (hideOption) {
+          hideSuggest(target);
         }
       }
     }
