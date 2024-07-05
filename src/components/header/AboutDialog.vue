@@ -75,7 +75,6 @@ defineExpose({
   .app-title {
     margin-bottom: 0;
     font-weight: bold;
-    font-size: var(--large-font-size);
   }
   .app-version {
     margin-top: 0.5rem;

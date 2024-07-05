@@ -33,6 +33,13 @@ watch(
         >Avalab.aiのプロンプト入力候補を表示しない</label
       >
     </div>
+    <div class="item">
+      <input
+        type="checkbox"
+        id="use-sidepanel"
+        v-model="options.useSidePanel"
+      /><label for="use-sidepanel">サイドパネルモードで使用する</label>
+    </div>
   </div>
 </template>
 

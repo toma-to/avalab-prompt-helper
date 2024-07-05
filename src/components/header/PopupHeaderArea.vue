@@ -4,6 +4,7 @@ import AddPromptButton from '@components/buttons/AddPromptButton.vue';
 import EditCategoryButton from '@components/buttons/EditCategoryButton.vue';
 import ExportButton from '@components/buttons/ExportButton.vue';
 import ImportButton from '@components/buttons/ImportButton.vue';
+import OptionsButton from '@components/buttons/OptionsButton.vue';
 import IconButton from '@components/common/IconButton.vue';
 import AboutDialog from './AboutDialog.vue';
 
@@ -15,7 +16,7 @@ async function onHelp() {
 <template>
   <div class="header">
     <AboutDialog ref="aboutDialogRef" />
-    <div class="title">avalabプロンプト入力支援</div>
+    <div class="title">avalabプロンプト<br />入力支援</div>
     <div class="icon-area">
       <div class="icon-item">
         <AddPromptButton class="icon" />
@@ -28,6 +29,9 @@ async function onHelp() {
       </div>
       <div class="icon-item">
         <ImportButton class="icon" />
+      </div>
+      <div class="icon-item">
+        <OptionsButton class="icon" />
       </div>
       <div class="icon-item">
         <IconButton

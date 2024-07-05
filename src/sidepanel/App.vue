@@ -2,7 +2,7 @@
 import { useRecords } from '@models/prompts/data-store';
 import CategoryEditControl from '@components/edit-records/CategoryEditControl.vue';
 import PromptAddEditControl from '@components/edit-records/PromptAddEditControl.vue';
-import PopupHeaderArea from '@components/header/PopupHeaderArea.vue';
+import SidepanelHeaderArea from '@components/header/SidepanelHeaderArea.vue';
 import ImportControl from '@components/import/ImportControl.vue';
 import FilterArea from '@components/prompt-view/FilterArea.vue';
 import PromptBox from '@components/prompt-view/PromptBox.vue';
@@ -15,7 +15,7 @@ const records = useRecords();
     <PromptAddEditControl v-model="records" />
     <CategoryEditControl v-model="records" />
     <ImportControl v-model="records" />
-    <PopupHeaderArea />
+    <SidepanelHeaderArea />
     <FilterArea class="filter-area" />
     <PromptBox
       v-for="record in records"
@@ -32,6 +32,7 @@ const records = useRecords();
   padding-top: calc(
     var(--header-area-height) + var(--filter-area-height) + 0.5rem
   );
+  margin-bottom: 3rem;
 }
 .filter-area {
   position: fixed;

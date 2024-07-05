@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build --emptyOutDir && vite build --config=vite.config.content_scripts",
+    "build": "vue-tsc -b && vite build --emptyOutDir && vite build --config=vite.config.content_scripts && vite build --config=vite.config.service_worker",
     "preview": "vite preview",
     "format": "npx prettier . --write",
     "zip": "rm ../avalab-prompt-helper.zip; cd dist; zip -r ../../avalab-prompt-helper.zip *",

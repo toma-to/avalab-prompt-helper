@@ -14,11 +14,12 @@ export { loadOptions, storeOptions };
 export const storeOptionsRef = async (options: Ref<Options>): Promise<void> => {
   await storeOptions({
     hidePromptSuggest: options.value.hidePromptSuggest,
+    useSidePanel: options.value.useSidePanel,
   });
 };
 
 export const watchOptions = (callback: (options: Options) => void) => {
-  chrome.storage.local?.onChanged.addListener((changes) => {
+  chrome.storage?.local.onChanged.addListener((changes) => {
     if (changes[APP_OPTIONS]) {
       callback(changes[APP_OPTIONS].newValue);
     }
