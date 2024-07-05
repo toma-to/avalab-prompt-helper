@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { useDebounceFn, useEventBus } from '@vueuse/core';
+import { useEventBus, useThrottleFn } from '@vueuse/core';
 import { promptFilterEventKey } from '@common/events';
 
 const inputText = ref<string | undefined>();
@@ -9,13 +9,13 @@ const { emit } = useEventBus(promptFilterEventKey);
 
 watch(
   inputText,
-  useDebounceFn(
+  useThrottleFn(
     (val: string | undefined) => {
       const list = val?.split(' ').filter((s) => s !== '') ?? [];
       emit({ filters: list });
     },
-    50,
-    { maxWait: 500 },
+    300,
+    true,
   ),
 );
 </script>
