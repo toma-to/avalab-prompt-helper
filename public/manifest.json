@@ -23,7 +23,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://avalab.ai/generate"],
+      "matches": ["https://avalab.ai/*"],
       "js": ["content_scripts/index.js"]
     }
   ]
