@@ -70,11 +70,15 @@ async function main() {
       input instanceof HTMLInputElement &&
       button instanceof HTMLButtonElement
     ) {
+      const prompt =
+        input.value && !input.value.endsWith(',')
+          ? ',' + message.prompt
+          : message.prompt;
       input.focus();
       await sleep(10);
-      input.value = input.value + message.prompt;
+      input.value = input.value + prompt;
       await sleep(10);
-      input.dispatchEvent(new InputEvent('input', { data: message.prompt }));
+      input.dispatchEvent(new InputEvent('input', { data: prompt }));
       if (message.submit) {
         await sleep(10);
         input.blur();
