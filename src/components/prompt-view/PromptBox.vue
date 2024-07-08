@@ -59,7 +59,7 @@ const hasRecords = computed(() => filterdRecords.value.length > 0);
       </div>
     </div>
     <VuSlideUpDown :active="expand" :duration="200">
-      <table class="prompt-table">
+      <table class="prompt-table" v-if="expand">
         <tbody>
           <PromptRow
             v-for="record in filterdRecords"
