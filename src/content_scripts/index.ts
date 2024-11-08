@@ -8,7 +8,7 @@ const isTargetInput = (node: Node): node is HTMLInputElement => {
   if (!(node instanceof HTMLInputElement)) {
     return false;
   }
-  if (node.parentElement?.classList.contains('tag-input')) {
+  if (node.parentElement?.parentElement?.classList.contains('tag-input')) {
     return true;
   }
   return false;
