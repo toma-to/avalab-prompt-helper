@@ -1,5 +1,6 @@
 import { loadOptions, watchOptions } from '@models/options/data-store';
 import { PromptMessage } from '@messages/message-types';
+import { ArrestCreate } from './ArrestCreate';
 
 const sleep = (ms: number) =>
   new Promise<void>((resolv) => setTimeout(resolv, ms));
@@ -29,6 +30,21 @@ const isTargetButton = (node: Node): node is HTMLButtonElement => {
   return false;
 };
 
+const isCreateButton = (node: Node): node is HTMLButtonElement => {
+  if (!(node instanceof HTMLButtonElement)) {
+    return false;
+  }
+
+  if (
+    node.type === 'button' &&
+    node.parentElement?.classList.contains('generate')
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
 const hideSuggest = (node: Node): void => {
   if (!(node instanceof HTMLElement)) {
     return;
@@ -42,6 +58,7 @@ async function main() {
   let input: any = undefined;
   let button: any = undefined;
   let hideOption = (await loadOptions()).hidePromptSuggest;
+  const arrestCreate = new ArrestCreate();
   watchOptions((options) => (hideOption = options.hidePromptSuggest));
 
   const observer = new MutationObserver((records) => {
@@ -49,9 +66,13 @@ async function main() {
       for (const target of record.addedNodes) {
         if (isTargetInput(target)) {
           input = target;
+          arrestCreate.watchPromputInput(target);
         }
         if (isTargetButton(target)) {
           button = target;
+        }
+        if (isCreateButton(target)) {
+          arrestCreate.target = target;
         }
         if (hideOption) {
           hideSuggest(target);
