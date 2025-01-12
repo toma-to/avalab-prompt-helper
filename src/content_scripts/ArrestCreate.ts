@@ -3,10 +3,19 @@ const DISABLED_CLASS = 'button--disabled';
 export class ArrestCreate {
   private targetButton: HTMLButtonElement | undefined;
   private hasPendingPrompt: boolean = false;
-  private optionEnable: boolean = true;
+  private optionEnable: boolean;
+
+  constructor(enable: boolean) {
+    this.optionEnable = enable;
+  }
 
   set target(value: HTMLButtonElement) {
     this.targetButton = value;
+    this.updateButtonStatus();
+  }
+
+  set enable(value: boolean) {
+    this.optionEnable = value;
     this.updateButtonStatus();
   }
 

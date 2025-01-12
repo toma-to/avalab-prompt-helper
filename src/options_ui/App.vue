@@ -36,6 +36,15 @@ watch(
     <div class="item">
       <input
         type="checkbox"
+        id="arrest-unintended-create"
+        v-model="options.arrestUnintendedCreate"
+      /><label for="arrest-unintended-create"
+        >プロンプト入力途中での生成を防ぐ</label
+      >
+    </div>
+    <div class="item">
+      <input
+        type="checkbox"
         id="use-sidepanel"
         v-model="options.useSidePanel"
       /><label for="use-sidepanel">サイドパネルモードで使用する</label>

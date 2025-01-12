@@ -57,9 +57,13 @@ const hideSuggest = (node: Node): void => {
 async function main() {
   let input: any = undefined;
   let button: any = undefined;
-  let hideOption = (await loadOptions()).hidePromptSuggest;
-  const arrestCreate = new ArrestCreate();
-  watchOptions((options) => (hideOption = options.hidePromptSuggest));
+  const initialOptions = await loadOptions();
+  let hideOption = initialOptions.hidePromptSuggest;
+  const arrestCreate = new ArrestCreate(initialOptions.arrestUnintendedCreate);
+  watchOptions((options) => {
+    hideOption = options.hidePromptSuggest;
+    arrestCreate.enable = options.arrestUnintendedCreate;
+  });
 
   const observer = new MutationObserver((records) => {
     for (const record of records) {
