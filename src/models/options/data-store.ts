@@ -15,6 +15,7 @@ export const storeOptionsRef = async (options: Ref<Options>): Promise<void> => {
   await storeOptions({
     hidePromptSuggest: options.value.hidePromptSuggest,
     useSidePanel: options.value.useSidePanel,
+    arrestUnintendedCreate: options.value.arrestUnintendedCreate,
   });
 };
 
