@@ -7,6 +7,8 @@ export const importEventKey: EventBusKey<{}> = Symbol(eventBusSymbolName);
 export const expandToggleEventKey: EventBusKey<{ expand: boolean }> =
   Symbol(eventBusSymbolName);
 
+export const expandNotifyEventKey: EventBusKey<{}> = Symbol(eventBusSymbolName);
+
 export const editPromptEventKey: EventBusKey<{
   target: PromptRecord;
   categoryId: string;
