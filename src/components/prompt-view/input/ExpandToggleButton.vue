@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useEventBus } from '@vueuse/core';
-import { expandToggleEventKey } from '@common/events';
+import { expandNotifyEventKey, expandToggleEventKey } from '@common/events';
 import IconButton from '@components/common/IconButton.vue';
 
 const expandAll = ref(false);
+
+const { on: onNotify } = useEventBus(expandNotifyEventKey);
+onNotify(() => (expandAll.value = true));
+
 const { emit } = useEventBus(expandToggleEventKey);
 function onToggleExpand() {
   expandAll.value = !expandAll.value;

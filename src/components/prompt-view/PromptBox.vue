@@ -4,7 +4,11 @@ import { useEventBus } from '@vueuse/core';
 import VuSlideUpDown from 'vue-slide-up-down';
 import { PromptRecord } from '@models/prompts/prompt-record';
 import { uncategorizedCategoryId } from '@common/constants';
-import { expandToggleEventKey, promptFilterEventKey } from '@common/events';
+import {
+  expandNotifyEventKey,
+  expandToggleEventKey,
+  promptFilterEventKey,
+} from '@common/events';
 import PromptRow from '@components/prompt-view/PromptRow.vue';
 
 const props = defineProps<{
@@ -15,8 +19,12 @@ const props = defineProps<{
 
 const expand = ref(false);
 const icon = computed(() => (expand.value ? 'remove' : 'add'));
+const { emit: notifyExpand } = useEventBus(expandNotifyEventKey);
 function toggleExpand() {
   expand.value = !expand.value;
+  if (expand.value) {
+    notifyExpand();
+  }
 }
 
 const labelClass = computed(() => {
